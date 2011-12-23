@@ -1,0 +1,67 @@
+<!--
+    Vizi build script
+
+    Documentation targets
+
+    Version: $Id: build-docs.xml,v 1.1 2005/02/28 11:33:40 geo Exp $
+-->
+<project name="Vizi-docs">
+    <target
+        name        = "docs"
+        depends     = "copyright, docs-config, docs-stats, docs-javadoc"
+        description = "Builds visualizer docs (configuration and statistics)"
+    />
+
+    <target 
+        name        = "docs-config" 
+        depends     = "init"
+        description = "Builds configuration description"
+    >
+        <mkdir dir="${docs}"/>
+        <xslt
+            in          = "${file.solid}"
+            out         = "${docs}/${id}-config.html"
+            style       = "${meta.xsl}/description.xsl"
+            force       = "${force.xslt}"
+            processor   = "${xslt.processor}"
+        >
+            <xmlcatalog refid="dtd"/>
+        </xslt>
+        <xslt
+            in          = "${vizi.src}/${vizi.package.path}/configuration.xml"
+            out         = "${docs}/vizi-config.html"
+            style       = "${meta.xsl}/description.xsl"
+        >
+            <xmlcatalog refid="dtd"/>
+        </xslt>
+    </target>
+
+    <target 
+        name        = "docs-stats"
+        depends     = "init, prepare"
+        description = "Gathers statistical information"
+    >
+        <mkdir dir="${docs}"/>
+        <xslt
+            in          = "${build.temp}/${id}_prepare.xml"
+            out         = "${docs}/${id}-stats.html"
+            style       = "${meta.xsl}/stats.xsl"
+            processor   = "${xslt.processor}"
+        >
+            <xmlcatalog refid="dtd"/>
+            <param name="language" expression="ru"/>
+        </xslt>
+    </target>
+
+    <target name="docs-javadoc" depends="init">
+        <property name="docs.javadoc" value="${docs}/api"/>
+
+        <mkdir dir="${docs.javadoc}"/>
+        <javadoc
+            sourcepath      = "${src.dir}"
+            destdir         = "${docs.javadoc}"
+            packagenames    = "${package}.*"
+            classpath       = "${vizi.jar}"
+        />
+    </target>
+</project>

@@ -1,0 +1,30 @@
+<!--
+    Vizi build script
+
+    Main build file
+
+    Version: $Id: build.xml,v 1.1 2005/02/28 11:33:40 geo Exp $
+-->
+<project name="Vizi-main">
+    <property name="meta.scripts" value="${meta}/scripts"/>
+    <property name="meta.xsl" value="${meta.scripts}/xsl"/>
+    <property name="meta.schema" value="${meta.scripts}/schema"/>
+
+    <property name="build.properties" value="${build}/properties"/>
+    <property name="build.temp" value="${build}/temp"/>
+    <property name="build.jars" value="${build}/jars"/>
+    <property name="build.vizi" value="${build}/vizi"/>
+
+    <property name="debug" value="on"/>
+    <property name="debuglevel" value="lines,var,sources"/>
+
+    <property name="xslt.processor" value="trax"/>
+    <property name="java.jar" value="${meta}/classes-1.1.8.jar"/>
+
+    <import file="build-shared.xml"/>
+    <import file="build-compile.xml"/>
+    <import file="build-docs.xml"/>
+    <import file="build-debug.xml"/>
+    <import file="build-vizi.xml"/>
+    <import file="build-other.xml"/>
+</project>

@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<!DOCTYPE configuration PUBLIC
+    "-//IFMO Vizi//Visualizer configuraion"
+    "http://ips.ifmo.ru/vizi/configuration.dtd"
+>
+
+<configuration>
+    <panel
+        description = "Configuration of the client area"
+        param       = "client"
+        foreground  = "000000"
+        background  = "ffffff"
+    >
+        <font
+            description = "Font of the client area"
+            face        = "Serif"
+            size        = "14"
+            style       = "plain"
+        />
+    </panel>
+    <panel
+        description = "Configuration of the controls pane"
+        param       = "controls"
+        foreground  = "000000"
+        background  = "c0c0c0"
+    >
+        <font
+            description = "Font of the controls pane"
+            face        = "Serif"
+            size        = "12"
+            style       = "plain"
+        />
+    </panel>
+    <panel
+        description = "Configuration of the comments pane"
+        param       = "comment"
+        foreground  = "000000"
+        background  = "c0c0c0"
+    >
+        <font
+            description = "Font of the comments pane"
+            face        = "Serif"
+            size        = "12"
+            style       = "plain"
+        />
+    </panel>
+    <group
+        description = "Hints configuration"
+        param       = "hint"
+    >
+        <font
+            description = "Font of hints"
+            face        = "Serif"
+            size        = "12"
+            style       = "plain"
+        />
+        <font
+            description = "Font of hints"
+            param       = "hotKeyFont"
+            face        = "Serif"
+            size        = "12"
+            style       = "bold"
+        />
+        <color
+            description = "Hint foreground color"
+            param       = "foreground"
+            value       = "000000"
+        />
+        <color
+            description = "HotKey hint foreground color"
+            param       = "hotKeyForeground"
+            value       = "7f7f7f"
+        />
+        <color
+            description = "Hint background color"
+            param       = "background"
+            value       = "ffffe0"
+        />
+        <property
+            description = "Vertical gap between text and border"
+            param       = "vgap"
+            value       = "-1"
+        />
+        <property
+            description = "Horizontal gap between text and border"
+            param       = "hgap"
+            value       = "2"
+        />
+        <property
+            description = "Delay before hint is shown"
+            param       = "delay"
+            value       = "1000"
+        />
+    </group>
+    <group
+        description = "Configuration of the about dialog"
+        param       = "about"
+    >        
+        <font
+            description = "Font of the legend"
+            face        = "SansSerif"
+            size        = "12"
+            style       = "plain"
+        />
+        <font
+            description = "Font of the legend caption"
+            param       = "caption-font"
+            style       = "bold"
+        />
+    </group>
+    <group
+        description = "Buttons configuration"
+        param       = "button"
+    >
+        <button
+            description = "Next-button"
+            param       = "next"
+            caption-ru  = ">>"
+            caption-en  = ">>"
+            hint-ru     = "Шаг вперед"
+            hint-en     = "Step forward"
+            hotKey      = "\u2192"
+        />
+        <button
+            description = "Previous-button"
+            param       = "prev"
+            caption-ru  = "&lt;&lt;"
+            caption-en  = "&lt;&lt;"
+            hint-ru     = "Шаг назад"
+            hint-en     = "Step backward"
+            hotKey      = "\u2190"
+        />
+        <button
+            description = "Next-big-button"
+            param       = "next-big"
+            caption-ru  = ">>>"
+            caption-en  = ">>>"
+            hint-ru     = "Большой шаг вперед"
+            hint-en     = "Big step forward"
+            hotKey      = "Shift + \u2192"
+        />
+        <button
+            description = "Previous-big-button"
+            param       = "prev-big"
+            caption-ru  = "&lt;&lt;&lt;"
+            caption-en  = "&lt;&lt;&lt;"
+            hint-ru     = "Большой шаг назад"
+            hint-en     = "Big step backward"
+            hotKey      = "Shift + \u2190"
+        />
+        <button
+            description = "'Restart' button"
+            param       = "restart"
+            caption-ru  = "Рестарт"
+            caption-en  = "Restart"
+            hint-ru     = "Начать заново"
+            hint-en     = "Restart from very beginning"
+            hotKey      = "Ctrl + F9"
+        />
+        <button
+            description = "'Auto' button"
+            param       = "auto"
+            caption-ru  = "Авто"
+            caption-en  = "Auto"
+            hint-ru     = "Переключиться в\nавтоматический режим"
+            hint-en     = "Switch to automatic mode"
+            hotKey      = "F9"
+        />
+        <button
+            description = "'Stop' button"
+            param       = "stop"
+            caption-ru  = "Стоп"
+            caption-en  = "Stop"
+            hint-ru     = "Переключиться в\nпошаговый режим"
+            hint-en     = "Switch to manual mode"
+            hotKey      = "F9"
+        />
+        <button
+            description = "'About' button"
+            param       = "about"
+            caption-ru  = "?"
+            caption-en  = "?"
+            hint-ru     = "О визуализаторе"
+            hint-en     = "About"
+            hotKey      = "F1"
+        />
+        <button
+            description = "'Save/Load' button"
+            param       = "SaveLoad"
+            caption-ru  = "Сохранить/Загрузить"
+            caption-en  = "Save/Load"
+            hint-ru     = "Сохранить/Загрузить состояние визуализатора"
+            hint-en     = "Save/Load visualizer state"
+        />
+        <property
+            description = "Whether to show save/load button"
+            param       = "ShowSaveLoad"
+            value       = "true"
+        />
+    </group>
+
+    <adjustablePanel
+        description     = "Delay tuning panel"
+        param           = "delay"
+        caption-ru      = "Задержка: {0,number,####}"
+        caption-en      = "Delay: {0,number,####}"
+        hint-ru         = "Задержка между шагами\nв автоматическом режиме"
+        hint-en         = "Delay between steps\nin automated mode"
+        value           = "1000"
+        minimum         = "100"
+        maximum         = "5000"
+        unitIncrement   = "100"
+        blockIncrement  = "300"
+        blockInterval   = "500"
+    >
+        <button
+            description = "Button for decreasing delay"
+            param       = "decrementButton"
+            caption-ru  = "&lt;&lt;"
+            caption-en  = "&lt;&lt;"
+            hint-ru     = "Уменьшить задержку"
+            hint-en     = "Decrease delay"
+        />
+        <button
+            description = "Button for increasing delay"
+            param       = "incrementButton"
+            caption-ru  = "&gt;&gt;"
+            caption-en  = "&gt;&gt;"
+            hint-ru     = "Увеличить задержку"
+            hint-en     = "Increase delay"
+        />
+    </adjustablePanel>
+    <group 
+        description = "'About' dialog configuration"
+        param       = "about" 
+    >
+        <button
+            description = "'OK' button"
+            param       = "button-ok"
+            caption-ru  = "OK"
+            caption-en  = "OK"
+            hint-ru     = "Закрыть это окно"
+            hint-en     = "Close this window"
+        />
+        <message
+            description = "Dialog title"
+            param       = "title"
+            message-ru  = "О визуализаторе"
+            message-en  = "About this visualizer"
+        />
+        <message
+            description = "'Algorithm' section caption"
+            param       = "algorithm-caption"
+            message-ru  = "Алгоритм"
+            message-en  = "Algorithm"
+        />
+        <message
+            description = "'Author' section caption"
+            param       = "author-caption"
+            message-ru  = "Автор визуализатора"
+            message-en  = "Author"
+        />
+        <message
+            description = "'Supervisor' section caption"
+            param       = "supervisor-caption"
+            message-ru  = "Руководитель"
+            message-en  = "Supervisor"
+        />
+        <message
+            description = "'Technology' section caption"
+            param       = "technology-caption"
+            message-ru  = "Технология визуализации"
+            message-en  = "Visualization technology"
+        />
+        <message
+            description = "Georgiy Korneev"
+            param       = "technology"
+            message-ru  = "Георгий Корнеев"
+            message-en  = "Georgiy Korneev"
+        />
+        <property
+            description = "E-mail of Georgiy Korneev"
+            param       = "technology-email"
+            value       = "kgeorgiy@rain.ifmo.ru"
+        />
+    </group>
+
+    <group
+        description = "Save/Load dialog configuration"
+        param       = "SaveLoadDialog"
+    >
+        <font
+            description = "Font of the save/load dialog"
+            face        = "SansSerif"
+            size        = "12"
+            style       = "plain"
+        />
+        <font
+            description = "Font of the text area in the save dialog"
+            param       = "text-font"
+            style       = "bold"
+        />
+        <button
+            description = "The button that is used for loading input data"
+            param       = "load"
+            caption-ru  = "Загрузить"
+            caption-en  = "Load"
+            hint-ru     = "Загрузить граф"
+            hint-en     = "Load the graph"
+        />
+        <button
+            param="copy"
+            description="The button that is used for saving the content of the TextArea to the system clipboard"
+            caption-ru="Копировать"
+            caption-en="Copy"
+            hint-ru="Скопировать граф в буфер"
+            hint-en="Copy the graph to clipboard"
+        />
+        <button
+            param="paste"
+            description="The button that is used for loading the content of the system clipboard to the TextArea"
+            caption-ru="Вставить"
+            caption-en="Paste"
+            hint-ru="Вставить граф из буфера"
+            hint-en="Paste the graph from clipboard"
+        />
+        <button
+            param="saveFile"
+            description="The button that is used for saving the content of the TextArea to the chosen file"
+            caption-ru="Сохранить в файл"
+            caption-en="Save to file"
+            hint-ru="Сохранить граф в файл"
+            hint-en="Save the graph to the file"
+        />
+        <button
+            param="loadFile"
+            description="The button that is used for loading the content of the TextArea from the chosen file"
+            caption-ru="Загрузить из файла"
+            caption-en="Load from the file"
+            hint-ru="Загрузить граф из файла"
+            hint-en="Load the graph from the file"
+        />
+        <button
+            description="The button that is used for restoring the content of the TextArea"
+            param="restore"
+            caption-ru="Восстановить"
+            caption-en="Restore"
+            hint-ru="Восстановить"
+            hint-en="Restores the setting"
+        />
+        <message
+            description="Dialog title"
+            param="title"
+            message-ru="Сохранить/Загрузить"
+            message-en="Save/Load"
+        />
+        <message
+            description="Save dialog title"
+            param="saveTitle"
+            message-ru="Сохранить"
+            message-en="Save"
+        />
+        <message
+            description="Load dialog title"
+            param="loadTitle"
+            message-ru="Загрузить"
+            message-en="Load"
+        />
+        <message
+            description = "The read file failure message"
+            param       = "CannotReadFile"
+            message-ru  = "Не могу прочесть файл {0}"
+            message-en  = "Cannot read file {0}"
+        />
+        <message
+            description = "The write file failure message"
+            param       = "CannotWriteFile"
+            message-ru  = "Не могу записать файл {0}"
+            message-en  = "Cannot write file {0}"
+        />
+        <panel
+            description="Configuration of the comments pane in the save/load dialog"
+            param="CommentPane"
+            foreground="000000"
+            background="c0c0c0"
+        >
+            <font
+                description = "Font of the comments pane in the save/load dialog"
+                face="Serif"
+                size="12"
+                style="plain"
+            />
+        </panel>
+    </group>
+
+    <group
+        description = "Error messages for SmartTokenizer"
+        param       = "SmartTokenizer"
+    >
+        <message
+            param       = "ExpectedDouble"
+            message-ru  = "Строка {0}. Ожидалось число вместо &quot;{1}&quot;"
+            message-en  = "Line {0}. Floating-point value expected instead of &apos;&apos;{1}&apos;&apos;"
+        />
+        <message
+            param       = "ExpectedInt"
+            message-ru  = "Строка {0}. Ожидалось целое число вместо &quot;{1}&quot;"
+            message-en  = "Line {0}. Integer value expected instead of &apos;&apos;{1}&apos;&apos;"
+        />
+        <message
+            param       = "ExpectedBoolean"
+            message-ru  = "Строка {0}. Ожидалось true/false вместо &quot;{1}&quot;"
+            message-en  = "Line {0}. Boolean (true/false) value expected instead of &apos;&apos;{1}&apos;&apos;"
+        />
+        <message
+            param       = "DoubleOutOfBounds"
+            message-ru  = "Строка {0}. Ожидалось число в диапазоне от {2} до {3} вместо {1}"
+            message-en  = "Line {0}. Number between {2} and {3} expected instead of {1}"
+        />
+        <message
+            param       = "IntOutOfBounds"
+            message-ru  = "Строка {0}. Ожидалось целое число в диапазоне от {2} до {3} вместо {1}"
+            message-en  = "Line {0}. Integer number between {2} and {3} expected instead of {1}"
+        />
+        <message
+            param       = "UnexpectedEOF"
+            message-ru  = "Строка {0}. Неожиданный конец ввода"
+            message-en  = "Line {0}. Unexpected end of input"
+        />
+        <message
+            param       = "Expected"
+            message-ru  = "Строка {0}. Ожидалось &quot;{1}&quot; вместо &quot;{2}&quot;"
+            message-en  = "Line {0}. &apos;&apos;{1}&apos;&apos; expected instead of &apos;&apos;{2}&apos;&apos;"
+        />
+        <message
+            param       = "EOFExpected"
+            message-ru  = "Строка {0}. Ожидался конец ввода"
+            message-en  = "Line {0}. End of input expected"
+        />
+        <message
+            param       = "IOException"
+            message-ru  = "Строка {0}. Ошибка ввода-вывода"
+            message-en  = "Line {0}. In/Out error"
+        />
+    </group>
+
+</configuration>

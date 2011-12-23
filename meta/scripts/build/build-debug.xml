@@ -1,0 +1,49 @@
+<!--
+    Vizi build script
+
+    Debug targets
+
+    Version: $Id: build-debug.xml,v 1.1 2005/02/28 11:33:40 geo Exp $
+-->
+<project name="Vizi-debug">
+    <target 
+        name        = "debug-check"
+        depends     = "init, jars"
+        description = "Builds .cmd file for automata checker"
+    >
+        <xslt
+            in          = "${file.solid}"
+            out         = "${target}/Check${id}.cmd"
+            style       = "${meta.xsl}/check-cmd.xsl"
+            force       = "${force.xslt}"
+            processor   = "${xslt.processor}"
+        >
+            <xmlcatalog refid="dtd"/>
+            <param name="language" expression="ru"/>
+            <param name="version" expression="${version}"/>
+        </xslt>
+    </target>
+
+    <target 
+        name        = "debug-source"
+        depends     = "init, prepare"
+        description = "Builds sources for debug"
+    >
+        <xslt
+            in          = "${build.temp}/${id}_prepare.xml"
+            out         = "${build.temp}/${id}_debug.java.xml"
+            style       = "${meta.xsl}/debug.xsl"
+            processor   = "${xslt.processor}"
+        >
+            <xmlcatalog refid="dtd"/>
+        </xslt>
+        <xslt
+            in          = "${build.temp}/${id}_debug.java.xml"
+            out         = "${src.dir}/${package.path}/${id}Debug.java"
+            style       = "${meta.xsl}/java.xsl"
+            processor   = "${xslt.processor}"
+        >
+            <xmlcatalog refid="dtd"/>
+        </xslt>
+    </target>
+</project>

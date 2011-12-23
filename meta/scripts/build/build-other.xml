@@ -1,0 +1,46 @@
+<!--
+    Vizi build script
+
+    Other targets
+
+    Version: $Id: build-other.xml,v 1.1 2005/02/28 11:33:40 geo Exp $
+-->
+<project name="Vizi-other">
+    <target 
+        name        = "help"
+        description = "Shows help information"
+    >
+        <echo message=""/>
+        <echo message="Compilation targets"/>
+        <echo message="  all          - builds jars, cmds and HMTLs"/>
+        <echo message="  jars         - compiles projects and builds jars"/>
+        <echo message="  cmds         - builds command files"/>
+        <echo message="  htmls        - builds HTML files"/>
+        <echo message="Documentation targets"/>
+        <echo message="  docs         - builds visualizer docs (config and stats)"/>
+        <echo message="  docs-config  - builds visualizer configuration description"/>
+        <echo message="  docs-stats   - builds visualizer statistics"/>
+        <echo message="Debug targets"/>
+        <echo message="  debug-check  - builds command file for automated verification"/>
+        <echo message="  debug-source - builds java-source for algorithm debugging"/>
+        <echo message="Vizi targets"/>
+        <echo message="  vizi         - builds Vizi library"/>
+        <echo message="  vizi-javadoc - builds Vizi JavaDoc documentation"/>
+        <echo message="Other targets"/>
+        <echo message="  clean        - removes created files and directories"/>
+        <echo message="  help         - displays this help"/>
+    </target>
+
+    <target 
+        name        = "clean"
+        description = "Removes created files and directories"
+    >
+        <delete dir="${build.temp}"/>
+        <delete dir="${build.jars}"/>
+        <delete dir="${build.properties}"/>
+        <delete dir="${build}"/>
+
+        <delete dir="${docs}"/>
+        <delete dir="${target}"/>
+    </target>
+</project>

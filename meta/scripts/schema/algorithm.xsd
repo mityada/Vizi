@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:annotation>
+        <xsd:documentation xml:lang="ru">
+            Copyright Кафедра КТ, СПб ГИТМО (ТУ), 2003
+        </xsd:documentation>
+        <xsd:documentation xml:lang="en">
+            Copyright Computer Technologies Department, SPb IFMO, 2003
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:complexType name="algorithm">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Контейнер, содержащий описания автоматов.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Container for automata descriptions.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element 
+                name        = "import" 
+                type        = "xsd:string"
+                minOccurs   = "0" 
+                maxOccurs   = "unbounded"
+            >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Импортируемый класс или пакет.
+                    </xsd:documentation>
+                    <xsd:documentation xml:lang="en">
+                        Class or package import.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element
+                name        = "variable"
+                type        = "global-variable"
+                minOccurs   = "0"
+                maxOccurs   = "unbounded"                
+            />
+            <xsd:element 
+                name        = "data"
+                type        = "data"
+                minOccurs   = "0"
+            />
+            <xsd:element
+                name        = "toString"
+                type        = "xsd:string"
+                minOccurs   = "0"
+            >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Тело метода "toString".
+                    </xsd:documentation>
+                    <xsd:documentation xml:lang="en">
+                        Body of the "toString".
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element 
+                name        = "auto" 
+                type        = "auto"
+                maxOccurs   = "unbounded"
+            />
+            <xsd:element
+                name        = "method"
+                type        = "method"
+                minOccurs   = "0"
+                maxOccurs   = "unbounded"
+            />
+        </xsd:sequence>
+        <xsd:attribute 
+            name = "type"
+            type = "xsd:string"
+        />
+    </xsd:complexType>
+
+    <xsd:complexType name="method">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Описание глобального метода.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Global method description.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute 
+                    name = "header"
+                    type = "xsd:string"
+                    use  = "required"
+                />
+                <xsd:attribute 
+                    name = "comment"
+                    type = "description"
+                    use  = "required"
+                />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="data">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Описание модели данных.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Data model definition.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element
+                name        = "variable"
+                type        = "deprecated-variable"
+                minOccurs   = "0"
+                maxOccurs   = "unbounded"                
+            />
+            <xsd:element
+                name        = "toString"
+                type        = "xsd:string"
+            >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Тело метода "toString" для модели данных.
+                    </xsd:documentation>
+                    <xsd:documentation xml:lang="en">
+                        Body of the "toString" method for the data model.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="deprecated-variable">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Устаревшее описание глобальной переменной.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Deprecated global variable definition.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute 
+                    name = "description"
+                    type = "description"
+                    use  = "required"
+                />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="global-variable">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Описание глобальной переменной.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Global variable definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:attribute 
+            name = "description"
+            type = "description"
+            use  = "required"
+        />
+        <xsd:attribute 
+            name = "name"
+            type = "id"
+            use  = "required"
+        />
+        <xsd:attribute 
+            name = "type"
+            type = "type"
+            use  = "required"
+        />
+        <xsd:attribute 
+            name = "value"
+            type = "value"
+            use  = "required"
+        />
+    </xsd:complexType>
+
+    <xsd:complexType name="local-variable">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Описание локальной переменной.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Local variable definition.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute 
+                    name = "description"     
+                    type = "description"            
+                    use  = "required"
+                />
+                <xsd:attribute 
+                    name = "name"
+                    type = "id"
+                    use  = "required"
+                />
+                <xsd:attribute 
+                    name = "type"
+                    type = "type"
+                    use  = "required"
+                />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="auto">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Описание автомата.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Automata definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element
+                name        = "variable"
+                type        = "local-variable"
+                minOccurs   = "0"
+                maxOccurs   = "unbounded"                
+            />
+            <xsd:element 
+                name        = "start"
+                type        = "start-finish"
+                minOccurs   = "0"
+            >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Действия, выполняемые в начальном состоянии.
+                    </xsd:documentation>
+                    <xsd:documentation xml:lang="en">
+                        Action performed in initial state.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:group 
+                ref         = "statements" 
+                maxOccurs   = "unbounded"
+            />
+            <xsd:element 
+                name        = "finish"
+                type        = "start-finish"
+                minOccurs   = "0"
+            >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Действия, выполняемые в конечном состоянии.
+                    </xsd:documentation>
+                    <xsd:documentation xml:lang="en">
+                        Action performed in final state.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute 
+            name    = "id"                      
+            type    = "id"                     
+            use     = "required"  
+        >
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Идентификатор автомата.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    Automata identifier.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute 
+            name    = "description"
+            type    = "description"
+            use     = "required"
+        >
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Описание автомата.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    Automata description.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:group name="statements">
+        <xsd:choice>
+            <xsd:element name="step"        type="step"/>
+            <xsd:element name="call-auto"   type="call-auto"/>
+            <xsd:element name="if"          type="if"/>
+            <xsd:element name="while"       type="while"/>
+        </xsd:choice>
+    </xsd:group>
+
+    <xsd:group name="mixed-draw">
+        <xsd:choice>
+            <xsd:element name="draw" type="draw"/>
+            <xsd:sequence>
+                <xsd:element name="draw-true"  type="draw"/>
+                <xsd:element name="draw-false" type="draw"/>
+            </xsd:sequence>
+        </xsd:choice>
+    </xsd:group>
+
+    <xsd:complexType name="start-finish">
+        <xsd:sequence>
+            <xsd:element
+                name        = "draw"
+                type        = "draw"
+                minOccurs   = "0"
+            />
+        </xsd:sequence>
+        <xsd:attributeGroup ref="comment"/>
+    </xsd:complexType>
+
+    <xsd:simpleType name="draw">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Отрисовывает состояние автомата.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Draws automata state.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:list itemType="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="draw-true">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Отрисовывает состояние автомата.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Draws automata state.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:list itemType="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="draw-false">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Отрисовывает состояние автомата.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Draws automata state.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:list itemType="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:attributeGroup name="step-attributes">
+        <xsd:attribute name="id"            type="id"                       />
+        <xsd:attribute name="description"   type="description"              />
+        <xsd:attribute name="level"         type="level"        default="0" />
+    </xsd:attributeGroup>
+
+
+    <xsd:attributeGroup name="comment">
+        <xsd:attribute name="comment-ru" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Комментарий на русском языке.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    Russian comment.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="comment-en" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Комментарий на английском языке.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    English comment.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="comment-args" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Аргументы комментария.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    Comment's arguments.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:simpleType name="id">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z][A-Za-z0-9]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="type">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z][A-Za-z0-9 \[\]]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="value">
+        <xsd:restriction base="xsd:string">
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="description">
+        <xsd:restriction base="xsd:string">
+            <!-- TODO: right restriction -->
+            <!--
+            <xsd:pattern value="\s*\S*\s*"/>
+            -->
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="step">               
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Простой шаг автомата.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Simple automata's step.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="draw" type="draw" minOccurs="0"/>
+            <xsd:choice>
+                <xsd:element name="action" type="action"/>
+                <xsd:sequence>
+                    <xsd:element name="direct"  type="direct"/>
+                    <xsd:element name="reverse" type="reverse"  minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:choice>
+        </xsd:sequence>
+        <xsd:attributeGroup ref="step-attributes"/>
+        <xsd:attributeGroup ref="comment"/>
+    </xsd:complexType>
+
+    <xsd:simpleType name="level">
+        <xsd:restriction base="xsd:byte"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="direct">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Прямой шаг алгоритма.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Direct step of algorithm.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:list itemType="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="reverse">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Обратный шаг алгоритма.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Reverse step of algorithm.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:list itemType="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="action">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Автоматически обращаемый шаг алгоритма.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">   
+                Automatically reversed step of algorithm.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:list itemType="xsd:string"/>
+    </xsd:simpleType>  
+
+    <xsd:complexType name="call-auto">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Вызов вложенного автомата.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Calls specified automata.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name = "id"                      type = "id"                 use = "required"    />
+        <xsd:attribute name = "level"                   type = "level"              default = "0"       />
+    </xsd:complexType>
+
+    <xsd:complexType name="if">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Выбор.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Choice.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:group ref="mixed-draw" minOccurs="0"/>
+            <xsd:element name="then"    type="then"/>
+            <xsd:element name="else"    type="else" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="id"            type="id"           use="required"  />
+        <xsd:attribute name="description"   type="description"                  />
+        <xsd:attribute name="test"          type="test"         use="required"  />
+        <xsd:attribute name="rtest"         type="test"                         />
+        <xsd:attribute name="level"         type="level"        default = "0"   />
+        <xsd:attributeGroup ref="conditional-comment"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="then">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Положительная ветвь if.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                if's positive branch.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:group
+            ref         = "statements"
+            minOccurs   = "0"
+            maxOccurs   = "unbounded"
+        />
+    </xsd:complexType>
+
+    <xsd:complexType name="else">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Отрицательная ветвь if.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                if's negative branch.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:group
+            ref         = "statements"
+            minOccurs   = "0"
+            maxOccurs   = "unbounded"
+        />
+    </xsd:complexType>
+
+    <xsd:attributeGroup name="conditional-comment">
+        <xsd:attribute name = "true-comment-ru"         type = "xsd:string"                             >
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Комментарий на русском языке, в случае если test истинен.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    Russian comment if test is true.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name = "true-comment-en"         type = "xsd:string"                             >
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Комментарий на английском языке, в случае если test истинен.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    English comment if test is true.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name = "false-comment-ru"        type = "xsd:string"                             >
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Комментарий на русском языке, в случае если test ложен.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    Russian comment if test is false.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name = "false-comment-en"        type = "xsd:string"                             >
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Комментарий на английском языке, в случае если test ложен.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    English comment if test is false.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name = "comment-args"            type = "xsd:string"                             >
+            <xsd:annotation>
+                <xsd:documentation xml:lang="ru">
+                    Аргументы комментария.
+                </xsd:documentation>
+                <xsd:documentation xml:lang="en">
+                    Comment's arguments.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:simpleType name="test">
+        <xsd:list itemType="xsd:string"/>
+        <!--
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z0-9-][&lt;&gt;&amp;=-+\*\.\]*"/>
+        </xsd:restriction>
+        -->
+    </xsd:simpleType>
+
+    <xsd:complexType name="while">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Цикл с предусловием.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Cycle 'while'.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:group ref="mixed-draw" minOccurs="0"/>
+            <xsd:group ref="statements" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name = "id"                  type = "id"                                         />
+        <xsd:attribute name = "description"         type = "description"                                />
+        <xsd:attribute name = "test"                type = "test"                       use = "required"/>
+        <xsd:attribute name = "rtest"               type = "test"                                       />
+        <xsd:attribute name = "level"               type = "level"                      default = "0"   />
+        <xsd:attributeGroup ref="conditional-comment"/>
+    </xsd:complexType>
+
+</xsd:schema>

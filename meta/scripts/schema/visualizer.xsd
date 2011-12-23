@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="ru">
+            Copyright Кафедра КТ, СПб ГИТМО (ТУ), 2003
+        </xsd:documentation>
+        <xsd:documentation xml:lang="en">
+            Copyright Computer Technologies Department, SPb IFMO, 2003
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:include schemaLocation="algorithm.xsd"/>
+    <xsd:include schemaLocation="configuration.xsd"/>
+
+    <xsd:element 
+        name        = "visualizer"
+        type        = "visualizer"
+    />
+    <xsd:complexType name="visualizer">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Описание визуализатора.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Visualizer description.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element
+                name        = "algorithm"
+                type        = "algorithm"
+            />
+            <xsd:element
+                name        = "configuration"
+                type        = "configuration"
+            />
+        </xsd:sequence>
+        <xsd:attribute name = "id"                  type = "id"                     use = "required"/>
+        <xsd:attribute name = "package"             type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "main-class"          type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "preferred-width"     type = "xsd:positiveInteger"    use = "required"/>
+        <xsd:attribute name = "preferred-height"    type = "xsd:positiveInteger"    use = "required"/>
+        <xsd:attribute name = "name-ru"             type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "name-en"             type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "copyright-ru"        type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "copyright-en"        type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "author-en"           type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "author-ru"           type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "author-email"        type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "supervisor-en"       type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "supervisor-ru"       type = "xsd:string"             use = "required"/>
+        <xsd:attribute name = "supervisor-email"    type = "xsd:string"             use = "required"/>
+    </xsd:complexType>
+</xsd:schema>

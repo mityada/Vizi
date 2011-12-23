@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<!-- Описание логики визуализаторов -->
+<!ELEMENT algorithm (import*, variable*, data?, toString?, auto+, method*)>
+<!ATTLIST algorithm
+    type                CDATA       #IMPLIED
+>
+
+<!-- Описание импортируемых классов и пакетов -->
+<!ELEMENT import (#PCDATA)*>
+<!ATTLIST import
+>
+
+<!-- Описание переменных -->
+<!ELEMENT variable (#PCDATA)*>
+<!ATTLIST variable
+    description         CDATA       #REQUIRED
+    name                CDATA       #IMPLIED
+    type                CDATA       #IMPLIED
+    value               CDATA       #IMPLIED
+>
+
+<!-- Описание модели данных -->
+<!ELEMENT data (variable*, toString)>
+<!ATTLIST data
+>
+
+<!-- Описание процедуры преобразование модели данных в строку -->
+<!ELEMENT toString (#PCDATA)*>
+<!ATTLIST toString
+>
+
+<!ENTITY % automata-steps "step | call-auto | if | while">
+
+<!-- Описание автомата -->
+<!ELEMENT auto (variable*, start?, (%automata-steps;)+, finish?)>
+<!ATTLIST auto
+    id                  ID          #REQUIRED
+    description         CDATA       #REQUIRED
+>
+
+<!-- Исходное состояние автомата -->
+<!ELEMENT start (draw?)>
+<!ATTLIST start
+    comment-ru          CDATA       #IMPLIED
+    comment-en          CDATA       #IMPLIED
+    comment-args        CDATA       #IMPLIED
+>
+
+<!-- Конечное состояние автомата -->
+<!ELEMENT finish (draw?)>
+<!ATTLIST finish
+    comment-ru          CDATA       #IMPLIED
+    comment-en          CDATA       #IMPLIED
+    comment-args        CDATA       #IMPLIED
+>
+
+<!-- Простой шаг автомата -->
+<!ELEMENT step (draw?, (action | (direct, reverse?)))>
+<!ATTLIST step
+    id                  NMTOKEN     #IMPLIED
+    description         CDATA       #REQUIRED
+    level               CDATA       "0"
+    comment-ru          CDATA       #IMPLIED
+    comment-en          CDATA       #IMPLIED
+    comment-args        CDATA       #IMPLIED
+>
+
+<!-- Прямой шаг алгоритма -->
+<!ELEMENT direct (#PCDATA)*>
+<!ATTLIST direct
+>
+
+<!-- Обратный шаг алгоритма -->
+<!ELEMENT reverse (#PCDATA)*>
+<!ATTLIST reverse
+>
+
+<!-- Автоматически обращаемый шаг алгоритма -->
+<!ELEMENT action (#PCDATA)*>
+<!ATTLIST action
+>
+
+<!-- Отображение состояния -->
+<!ELEMENT draw (#PCDATA)*>
+<!ATTLIST draw
+>
+
+<!ELEMENT draw-true (#PCDATA)*>
+<!ATTLIST draw-true
+>
+
+<!ELEMENT draw-false (#PCDATA)*>
+<!ATTLIST draw-false
+>
+
+<!-- Вызов вложенного автомата -->
+<!ELEMENT call-auto EMPTY>
+<!ATTLIST call-auto
+    id                  IDREF       #REQUIRED
+    level               CDATA       "0"
+>
+
+<!-- Выбор -->
+<!ELEMENT if ((draw | (draw-true, draw-false))?, then, else?)>
+<!ATTLIST if
+    id                  NMTOKEN     #IMPLIED
+    description         CDATA       #REQUIRED
+    level               CDATA       "0"
+    test                CDATA       #REQUIRED
+    rtest               CDATA       #IMPLIED
+    true-comment-ru     CDATA       #IMPLIED
+    true-comment-en     CDATA       #IMPLIED
+    false-comment-ru    CDATA       #IMPLIED
+    false-comment-en    CDATA       #IMPLIED
+    comment-args        CDATA       #IMPLIED
+>
+
+<!-- Положительная ветвь if -->
+<!ELEMENT then (%automata-steps;)*>
+<!ATTLIST then
+>
+
+<!-- Отрицательная ветвь if -->
+<!ELEMENT else (%automata-steps;)*>
+<!ATTLIST else
+>
+
+<!-- Цикл с предусловием -->
+<!ELEMENT while ((draw | (draw-true, draw-false))?, (%automata-steps;)+)>
+<!ATTLIST while
+    id                  NMTOKEN     #IMPLIED
+    description         CDATA       #REQUIRED
+    level               CDATA       "0"
+    test                CDATA       #REQUIRED
+    rtest               CDATA       #IMPLIED
+    true-comment-ru     CDATA       #IMPLIED
+    true-comment-en     CDATA       #IMPLIED
+    false-comment-ru    CDATA       #IMPLIED
+    false-comment-en    CDATA       #IMPLIED
+    comment-args        CDATA       #IMPLIED
+>
+
+<!-- Метод -->
+<!ELEMENT method (#PCDATA)*>
+<!ATTLIST method
+    header              CDATA       #REQUIRED
+    comment             CDATA       #REQUIRED
+>

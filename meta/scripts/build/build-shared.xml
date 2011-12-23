@@ -1,0 +1,150 @@
+<!--
+    Vizi build script
+
+    Shared targets
+
+    Version: $Id: build-shared.xml,v 1.2 2006/05/16 10:18:30 geo Exp $
+-->
+<project name="Vizi-shared">
+    <target name="copyright">
+        <tstamp/>
+
+        <property file="${meta.scripts}/version.properties"/>
+
+        <echo message="${copyright}"/>
+        <echo message="Version ${version}"/>
+
+        <property name="vizi.jar.name" value="vizi-${version}.jar"/>
+        <property name="vizi.jar.path" location="${meta}"/>
+        <property name="vizi.jar" location="${vizi.jar.path}/${vizi.jar.name}"/>
+
+        <xmlcatalog id="dtd">
+            <dtd
+                publicId="-//IFMO Vizi//Algorithm description"
+                location="${meta.schema}/algorithm.dtd"
+            />
+            <dtd
+                publicId="-//IFMO Vizi//Visualizer description"
+                location="${meta.schema}/visualizer.dtd"
+            />
+            <dtd
+                publicId="-//IFMO Vizi//Visualizer configuraion"
+                location="${meta.schema}/configuration.dtd"
+            />
+        </xmlcatalog>
+    </target>
+    
+    <target name="init" depends="check.version, clean.soft, check.uptodate, validate">
+        <mkdir dir="${build}"/>
+        <mkdir dir="${build.temp}"/>
+        <mkdir dir="${build.jars}"/>
+        <mkdir dir="${build.properties}"/>
+        <mkdir dir="${target}"/>
+
+        <xslt
+            in          = "${file.solid}"
+            out         = "${build.temp}/temp.properties"
+            style       = "${meta.xsl}/properties.xsl"
+            force       = "${force.xslt}"
+            processor   = "${xslt.processor}"
+        >
+            <xmlcatalog refid="dtd"/>
+        </xslt>
+        <loadproperties srcfile="${build.temp}/temp.properties"/>
+    </target>
+
+    <target name="init.super" depends="copyright">
+        <loadproperties srcfile="${project}"/>
+        <property name="project.dir" location="${project}/../${dir}"/>
+        <property name="src.dir" location="${project.dir}/${src}"/>
+    </target>    
+
+    <target
+        name        = "prepare"
+        depends     = "init"
+        description = "Prepares automata description"
+    >
+        <xslt
+            in          = "${file.solid}"
+            out         = "${build.temp}/${id}_prepare.xml"
+            style       = "${meta.xsl}/prepare.xsl"
+            force       = "${force.xslt}"
+            processor   = "${xslt.processor}"
+        >
+            <xmlcatalog refid="dtd"/>
+        </xslt>
+    </target>
+
+    <target 
+        name    = "check.version" 
+        depends = "compare.version, init.super" 
+        unless  = "version.ok"
+    >
+        <fail message="Vizi version missmatch. Required: ${vizi.version}, found: ${version}"/>
+    </target>
+
+    <target 
+        name    = "compare.version"
+        depends = "init.super"
+    >
+        <condition property="version.ok">
+            <or>
+                <equals arg1="${version}" arg2="${vizi.version}"/>
+                <contains string="${compatible}" substring="${vizi.version}"/>
+            </or>
+        </condition>
+    </target>
+
+    <target 
+        description = "Checks whether XML is up-to-date"
+        name        = "check.uptodate"
+    >
+        <property name="file.solid" location="${project.dir}/${file}"/>
+        <condition property="force.xslt">
+            <not>
+                <uptodate 
+                    targetfile="${build.temp}/temp.properties"
+                >
+                    <srcfiles dir="${file.solid}/.." includes="*.xml"/>
+                </uptodate>
+            </not>
+        </condition>
+    </target>
+
+    <target 
+        description = "Validates XML file"
+        name        = "validate" 
+        depends     = "check.uptodate" 
+        if          = "force.xslt"
+    >
+        <taskdef name="validate" classname="SchemaValidatorTask"/>
+        <validate 
+            file    = "${project.dir}/${file}" 
+            schema  = "${meta.schema}/visualizer.xsd"
+         >
+            <xmlcatalog refid="dtd"/>
+        </validate>
+    </target>
+
+    <target
+        name    = "clean.check"
+    >
+        <property file="${build.temp}/project.properties"/>
+        <condition property="clean.skip">
+            <equals arg1="${project}" arg2="${project.old}"/>
+        </condition>
+    </target>        
+
+    <target 
+        name    = "clean.soft" 
+        depends = "clean.check" 
+        unless  = "clean.skip"
+    >
+        <antcall target="clean"/>
+
+        <mkdir dir="${build.temp}"/>
+        <propertyfile file="${build.temp}/project.properties">
+            <entry key="project.old" value="${project}"/>
+        </propertyfile>
+    </target>
+</project>

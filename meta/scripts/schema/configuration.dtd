@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<!ENTITY % fonts "(Serif | SansSerif | Symbol | Monospaced)">
+<!ENTITY % font-style "(plain | bold | italic | bolditalic)">
+<!ENTITY % elements "(
+    font | 
+    color | 
+    property | 
+    message | 
+    panel | 
+    style | 
+    button | 
+    spin-panel | 
+    adjustablePanel |
+    styleset | 
+    group | 
+    choice
+)">
+<!ENTITY % boolean "(true | false)">
+
+<!-- Configuration root -->
+<!ELEMENT configuration (%elements;)*>
+<!ATTLIST configuration
+>
+
+<!-- Font configuration -->
+<!ELEMENT font EMPTY>
+<!ATTLIST font
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 "font"
+    face                %fonts;                 #IMPLIED
+    size                CDATA                   #IMPLIED
+    style               %font-style;            #IMPLIED
+>    
+
+<!-- Color configuration -->
+<!ELEMENT color EMPTY>
+<!ATTLIST color
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    value               CDATA                   #REQUIRED
+>    
+
+<!-- Property -->
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    value               CDATA                   #REQUIRED
+>    
+
+<!-- Localized message -->
+<!ELEMENT message EMPTY>
+<!ATTLIST message
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    message-ru          CDATA                   #REQUIRED
+    message-en          CDATA                   #REQUIRED
+>    
+
+<!-- Panel configuration -->
+<!ELEMENT panel (font)>
+<!ATTLIST panel
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    foreground          CDATA                   #REQUIRED
+    background          CDATA                   #REQUIRED
+>
+
+<!-- Shape style -->
+<!ELEMENT style (font?)>
+<!ATTLIST style
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #IMPLIED
+    text-color          CDATA                   #IMPLIED
+    text-align          CDATA                   #IMPLIED
+    message-align       CDATA                   #IMPLIED
+    border-color        CDATA                   #IMPLIED
+    border-status       %boolean;               #IMPLIED
+    fill-color          CDATA                   #IMPLIED
+    fill-status         %boolean;               #IMPLIED
+    aspect              CDATA                   #IMPLIED
+    aspect-status       %boolean;               #IMPLIED
+    padding             CDATA                   #IMPLIED
+>  
+
+<!-- Button configuration -->
+<!ELEMENT button EMPTY>
+<!ATTLIST button
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    caption-ru          CDATA                   #REQUIRED
+    caption-en          CDATA                   #REQUIRED
+    hint-ru             CDATA                   #REQUIRED
+    hint-en             CDATA                   #REQUIRED
+    hotKey              CDATA                   #IMPLIED
+>    
+
+<!-- SpinPanel configuration -->
+<!ELEMENT spin-panel (button, button)>
+<!ATTLIST spin-panel
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    caption-ru          CDATA                   #REQUIRED
+    caption-en          CDATA                   #REQUIRED
+    hint-ru             CDATA                   #REQUIRED
+    hint-en             CDATA                   #REQUIRED
+    value               CDATA                   #REQUIRED
+    max-value           CDATA                   #REQUIRED
+    min-value           CDATA                   #REQUIRED
+    step                CDATA                   #REQUIRED
+>    
+
+<!-- AdjustablePanel configuration -->
+<!ELEMENT adjustablePanel (button, button)>
+<!ATTLIST adjustablePanel
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    caption-ru          CDATA                   #REQUIRED
+    caption-en          CDATA                   #REQUIRED
+    hint-ru             CDATA                   #REQUIRED
+    hint-en             CDATA                   #REQUIRED
+    value               CDATA                   #REQUIRED
+    maximum             CDATA                   #REQUIRED
+    minimum             CDATA                   #REQUIRED
+    unitIncrement       CDATA                   #REQUIRED
+    blockIncrement      CDATA                   #REQUIRED
+    blockInterval       CDATA                   #REQUIRED
+>    
+
+<!-- Styleset configuration -->
+<!ELEMENT styleset (style*)>
+<!ATTLIST styleset
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+>    
+
+<!-- Group configuration -->
+<!ELEMENT group (%elements;)*>
+<!ATTLIST group
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+>    
+
+<!-- Choice configuration -->
+<!ELEMENT choice (message*)>
+<!ATTLIST choice
+    description         CDATA                   #IMPLIED
+    param               NMTOKEN                 #REQUIRED
+    hint-ru             CDATA                   #REQUIRED
+    hint-en             CDATA                   #REQUIRED
+>    

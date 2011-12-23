@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<!ENTITY % algorithm SYSTEM "algorithm.dtd">
+<!ENTITY % configuration SYSTEM "configuration.dtd">
+
+%algorithm;
+%configuration;
+
+<!-- Visualizer description -->
+<!ELEMENT visualizer ((algorithm, configuration) | (configuration, algorithm))>
+<!ATTLIST visualizer
+    id                  ID          #REQUIRED
+    package             CDATA       #REQUIRED
+    main-class          CDATA       #REQUIRED
+
+    preferred-width     CDATA       #REQUIRED
+    preferred-height    CDATA       #REQUIRED
+
+    name-ru             CDATA       #REQUIRED
+    name-en             CDATA       #REQUIRED
+
+    copyright-ru        CDATA       #REQUIRED
+    copyright-en        CDATA       #REQUIRED
+
+    author-en           CDATA       #REQUIRED
+    author-ru           CDATA       #REQUIRED
+    author-email        CDATA       #REQUIRED
+
+    supervisor-en       CDATA       #REQUIRED
+    supervisor-ru       CDATA       #REQUIRED
+    supervisor-email    CDATA       #REQUIRED
+
+    xmlns:xsi                       CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation   CDATA #FIXED "http://ips.ifmo.ru/vizi/schema/visualizer.xsd"
+>

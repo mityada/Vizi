@@ -1,0 +1,18 @@
+<!--
+    Vizi build script
+
+    Main build file
+
+    Version: $Id: build.xml,v 1.1 2005/02/28 11:50:33 geo Exp $
+-->
+<project name="Vizi" default="all" basedir=".">
+    <property file="build.properties"/>
+
+    <path id="build.classpath">
+        <fileset dir="meta/bin/lib">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <import file="${meta}/scripts/build/build.xml"/>
+</project>

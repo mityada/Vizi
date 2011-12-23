@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<!--
+    "FindMaximum" visualizer configuration (example).
+    Shared for FindMaximum.xml and FindMaximumAR.xml
+    Version: $Id: FindMaximum-Configuration.xml,v 1.3 2004/03/23 16:39:34 geo Exp $
+-->
+
+<configuration>
+    <property 
+        description = "Comment pane height"
+        param       = "comment-height"
+        value       = "40"
+    />
+    <adjustablePanel
+        description = "Number of elements in the array"
+        param           = "elements"
+        caption-ru      = "Элементов: {0,number,####}"
+        caption-en      = "Elements: {0,number,####}"
+        hint-ru         = "Количество элементов в массиве"
+        hint-en         = "Number of elements in the array"
+        value           = "5"
+        minimum         = "5"
+        maximum         = "20"
+        unitIncrement   = "1"
+        blockIncrement  = "2"
+        blockInterval   = "500"
+    >
+        <button
+            param       = "incrementButton"
+            caption-ru  = "&gt;&gt;"
+            caption-en  = "&gt;&gt;"
+            hint-ru     = "Увеличить количество элементов"
+            hint-en     = "Increase number of elements"
+        />
+        <button
+            param       = "decrementButton"
+            caption-ru  = "&lt;&lt;"
+            caption-en  = "&lt;&lt;"
+            hint-ru     = "Уменьшить количество элементов"
+            hint-en     = "Decrease number of elements"
+        />
+    </adjustablePanel>
+    <button
+        description = "Fills the array with random values"
+        param       = "button-random"
+        caption-ru  = "Случайно"
+        caption-en  = "Random"
+        hint-ru     = "Заполнить массив случайными значениями"
+        hint-en     = "Fill the array with random values"
+    />
+    <message
+        description = 'Message for the "Max" label'
+        param       = "max-message"
+        message-ru  = "max = {0}"
+        message-en  = "max = {0}"
+    />
+    <message
+        description = 'Comment for "ArrayLength" parameter in the output file'
+        param       = "ArrayLengthComment"
+        message-ru  = "Длина массива ({0} ... {1})"
+        message-en  = "Array length ({0} ... {1})"
+    />
+    <message
+        description = 'Comment for "Elements" parameter in the output file'
+        param       = "ElementsComment"
+        message-ru  = "Элементы массива ({0} ... {1})"
+        message-en  = "Array elements ({0} ... {1})"
+    />
+    <message
+        description = 'Comment for "Step" parameter in the output file'
+        param       = "StepComment"
+        message-ru  = "Номер шага"
+        message-en  = "Current step"
+    />
+    <styleset
+        description = "Array style set"
+        param       = "array"
+    >
+        <style
+            description     = "Ordinary cell"
+            text-color      = "000000"
+            text-align      = "0.5"
+            border-color    = "000000"
+            border-status   = "true"
+            fill-color      = "8080ff"
+            fill-status     = "true"
+            aspect-status   = "false"
+            padding         = "0.2"
+        >
+            <font
+                face        = "Serif"
+                size        = "12"
+                style       = "plain"
+            />
+        </style>
+        <style
+            description     = "Selected cell"
+            fill-color      = "80ff80"
+        />
+        <style
+            description     = "Local-maximum cell"
+            fill-color      = "ff8080"
+        />
+    </styleset>
+    <style
+        description     = 'Style of the "Max" label'
+        param           = "max-style"
+        border-status   = "false"
+        fill-status     = "false"
+    >
+        <font size="20"/>
+    </style>
+    <property
+        description = "Maximum possible value of the element"
+        param       = "max-value"
+        value       = "99"
+    />
+    <property
+        description = "Widest possible value of the element"
+        param       = "max-value-string"
+        value       = "88"
+    />
+    <group
+        description = "Save/Load dialog configuration"
+        param       = "SaveLoadDialog"
+    >
+        <property
+            description = "Height of the comment pane"
+            param       = "CommentPane-lines"
+            value       = "2"
+        />
+        <property
+            description = "Width of the text area"
+            param       = "columns"
+            value       = "40"
+        />
+        <property
+            description = "Height of the text area"
+            param       = "rows"
+            value       = "7"
+        />
+    </group>
+</configuration>

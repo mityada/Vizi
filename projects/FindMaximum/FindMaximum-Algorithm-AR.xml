@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<!--
+    "FindMaximum" algoritm description using auto-reverse feature (example)
+    Version: $Id: FindMaximum-Algorithm-AR.xml,v 1.4 2005/02/28 11:47:59 geo Exp $
+-->
+
+<algorithm>
+    <variable
+        description = "Массив для поиска"
+        name        = "a"
+        type        = "int[]"
+        value       = "new int[]{1, 2, 3, 1, 3, 5, 6}"
+    />
+    <variable 
+        description = "Экземпляр апплета"
+        name        = "visualizer"
+        type        = "FindMaximumVisualizer"
+        value       = "null"
+    />
+    <variable 
+        description = "Текущий максимум"
+        name        = "max"
+        type        = "int"
+        value       = "0"
+    />
+
+    <toString>
+        StringBuffer s = new StringBuffer();
+        s.append("max = ").append(@max).append("\n");
+        s.append("i = ").append(@Main@i).append("\n");
+        return s.toString();
+    </toString>
+
+    <auto id="Main" description="Ищет максимум в массиве">
+        <variable 
+            description = "Переменная цикла"
+            name        = "i"
+            type        = "int"
+        />
+        <start
+            comment-ru="На экране изображен массив, в котором будет осуществляться поиск максимума"
+            comment-en="There is an array on the display"
+        >
+            <draw>
+                @visualizer.updateArray(0, 0);
+            </draw>
+        </start>
+        <step
+            id="Initialization"
+            description="Инициализация"
+            comment-ru="Инициализируем максимум нулем (так как в массиве только натуральные числа)."
+            comment-en="Intitialize maximum by zero (because array contains only positive numbers)."
+        >
+            <draw>
+                @visualizer.updateArray(0, 0);
+            </draw>
+            <action>
+                @max @= 0;
+            </action>
+        </step>
+        <step
+            id="LoopInit"
+            description="Начало цикла"
+            level="-1"
+        >
+            <action>
+                @i @= 0;
+            </action>
+        </step>
+        <while
+            id="Loop"
+            description="Цикл"
+            test="@i &lt; @a.length"
+            level="-1"
+        >
+            <if
+                id="Cond"
+                description="Условие"
+                test="@max &lt; @a[@i]"
+                true-comment-ru="{0} больше текущего максимума ({1})"
+                true-comment-en="{0} greater than current maximum ({1})"
+                false-comment-ru="{0} не больше текущего максимума ({1})"
+                false-comment-en="{0} not greater than current maximum ({1})"
+                comment-args="new Integer(@a[@i]), new Integer(@max)"
+            >
+                <draw>
+                    @visualizer.updateArray(@i, 1);
+                </draw>
+                <then>
+                    <step
+                        id="newMax"
+                        description="Обновление максимума"
+                        comment-ru="Обновляем текущий максимум"
+                        comment-en="Updating current maximum"
+                    >
+                        <draw>
+                            @visualizer.updateArray(@i, 2);
+                        </draw>
+                        <action>
+                            @max @= @a[@i];
+                        </action>
+                    </step>
+                </then>
+            </if>
+            <step
+                id="inc"
+                description="Инкремент"
+                level="-1"
+            >
+                <action>
+                    @i @= @i + 1;
+                </action>
+            </step>
+        </while>
+        <finish
+            comment-ru="Максимум найден ({0})"
+            comment-en="Maximum found ({0})"
+            comment-args="new Integer(@max)"
+        >
+            <draw>
+                @visualizer.updateArray(0, 0);
+            </draw>
+        </finish>
+    </auto>
+</algorithm>

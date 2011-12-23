@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:annotation>
+        <xsd:documentation xml:lang="ru">
+            Copyright Кафедра КТ, СПб ГИТМО (ТУ), 2003
+        </xsd:documentation>
+        <xsd:documentation xml:lang="en">
+            Copyright Computer Technologies Department, SPb IFMO, 2003
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:complexType name="configuration">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Configuration root.
+            </xsd:documentation>
+        </xsd:annotation>       
+        <xsd:group 
+            ref         = "elements"
+            minOccurs   = "0"
+            maxOccurs   = "unbounded"
+        />
+    </xsd:complexType>
+
+    <xsd:group name="elements">
+        <xsd:choice>
+            <xsd:element
+                name        = "font"
+                type        = "font"
+            />
+            <xsd:element
+                name        = "color"
+                type        = "color"
+            />
+            <xsd:element
+                name        = "property"
+                type        = "property"
+            />
+            <xsd:element
+                name        = "message"
+                type        = "message"
+            />
+            <xsd:element
+                name        = "panel"
+                type        = "panel"
+            />
+            <xsd:element
+                name        = "style"
+                type        = "style"
+            />
+            <xsd:element
+                name        = "button"
+                type        = "button"
+            />
+            <xsd:element
+                name        = "spin-panel"
+                type        = "spin-panel"
+            />
+            <xsd:element
+                name        = "adjustablePanel"
+                type        = "adjustablePanel"
+            />
+            <xsd:element
+                name        = "styleset"
+                type        = "styleset"
+            />
+            <xsd:element
+                name        = "group"
+                type        = "group"
+            />
+            <xsd:element
+                name        = "choice"
+                type        = "choice"
+            />
+        </xsd:choice>
+    </xsd:group>
+
+    <xsd:complexType name="font">       
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация шрифта.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Font configuration.
+            </xsd:documentation>
+        </xsd:annotation>       
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         default="font"  />
+        <xsd:attribute name = "face"            type = "font-name"                          />
+        <xsd:attribute name = "size"            type = "xsd:positiveInteger"                />
+        <xsd:attribute name = "style"           type = "font-style"                         />
+    </xsd:complexType>
+
+    <xsd:simpleType name="font-name">
+        <xsd:restriction base="xsd:string">     
+            <xsd:enumeration value="Serif"/>
+            <xsd:enumeration value="SansSerif"/>
+            <xsd:enumeration value="Symbol"/>
+            <xsd:enumeration value="Monospaced"/>
+        </xsd:restriction>      
+    </xsd:simpleType>
+
+    <xsd:simpleType name="font-style">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="plain"/>
+            <xsd:enumeration value="bold"/>
+            <xsd:enumeration value="italic"/>
+            <xsd:enumeration value="bolditalic"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="color">              
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация цвета.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Color configuration.
+            </xsd:documentation>
+        </xsd:annotation>       
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "value"           type = "color-type"         use = "required"/>
+    </xsd:complexType>
+
+    <xsd:simpleType name="color-type">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9a-fA-F]{6}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="property">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Свойство.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Property.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "value"           type = "xsd:string"         use = "required"/>          
+    </xsd:complexType>
+
+    <xsd:complexType name="message">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Сообщение.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Localized message.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "message-ru"      type = "xsd:string"         use = "required"/>      
+        <xsd:attribute name = "message-en"      type = "xsd:string"         use = "required"/>      
+    </xsd:complexType>
+
+    <xsd:complexType name="panel">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация панели.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Panel configuration.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element
+                name        = "font"
+                type        = "font"
+            />
+        </xsd:sequence>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "foreground"      type = "color-type"         use = "required"/>
+        <xsd:attribute name = "background"      type = "color-type"         use = "required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="style">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Стиль фигуры.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Shape style.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element
+                name        = "font"
+                type        = "font"
+                minOccurs   = "0"
+            />
+        </xsd:sequence>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "text-color"      type = "color-type"                         />
+        <xsd:attribute name = "text-align"      type = "align"                              />
+        <xsd:attribute name = "message-align"   type = "align"                              />
+        <xsd:attribute name = "border-color"    type = "color-type"                         />
+        <xsd:attribute name = "border-status"   type = "xsd:boolean"                        />
+        <xsd:attribute name = "fill-color"      type = "color-type"                         />
+        <xsd:attribute name = "fill-status"     type = "xsd:boolean"                        />
+        <xsd:attribute name = "aspect"          type = "positiveRealNumber"                 />
+        <xsd:attribute name = "aspect-status"   type = "xsd:boolean"                        />
+        <xsd:attribute name = "padding"         type = "positiveRealNumber"                 />
+    </xsd:complexType>
+
+    <xsd:complexType name="styleInStyleset">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Стиль фигуры, при использовании в множестве стилей.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Shape style in styleset.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element
+                name        = "font"
+                type        = "font"
+                minOccurs   = "0"
+            />
+        </xsd:sequence>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "optional"/>
+        <xsd:attribute name = "text-color"      type = "color-type"                         />
+        <xsd:attribute name = "text-align"      type = "align"                              />
+        <xsd:attribute name = "message-align"   type = "align"                              />
+        <xsd:attribute name = "border-color"    type = "color-type"                         />
+        <xsd:attribute name = "border-status"   type = "xsd:boolean"                        />
+        <xsd:attribute name = "fill-color"      type = "color-type"                         />
+        <xsd:attribute name = "fill-status"     type = "xsd:boolean"                        />
+        <xsd:attribute name = "aspect"          type = "positiveRealNumber"                 />
+        <xsd:attribute name = "aspect-status"   type = "xsd:boolean"                        />
+        <xsd:attribute name = "padding"         type = "positiveRealNumber"                 />
+    </xsd:complexType>
+
+    <xsd:simpleType name="positiveRealNumber">
+        <xsd:restriction base="xsd:double">
+            <xsd:minInclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="align">
+        <xsd:restriction base="xsd:double">
+            <xsd:minInclusive value="0"/>
+            <xsd:maxInclusive value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="button">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация кнопки.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Button configuration.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>      
+        <xsd:attribute name = "caption-ru"      type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "caption-en"      type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hint-ru"         type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hint-en"         type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hotKey"          type = "xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="spin-panel">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация SpinPanel.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                SpinPanel configuration.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element 
+                name        = "button"
+                type        = "button"
+                minOccurs   = "2"
+                maxOccurs   = "2"
+            />
+        </xsd:sequence>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>      
+        <xsd:attribute name = "caption-ru"      type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "caption-en"      type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hint-ru"         type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hint-en"         type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "value"           type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "max-value"       type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "min-value"       type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "step"            type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "big-step"        type = "xsd:double"         use = "optional"/>
+        <xsd:attribute name = "big-step-delay"  type = "xsd:double"         use = "optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="adjustablePanel">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация AdjustablePanel.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                SpinPanel AdjustablePanel.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element 
+                name        = "button"
+                type        = "button"
+                minOccurs   = "2"
+                maxOccurs   = "2"
+            />
+        </xsd:sequence>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>      
+        <xsd:attribute name = "caption-ru"      type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "caption-en"      type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hint-ru"         type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hint-en"         type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "value"           type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "maximum"         type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "minimum"         type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "unitIncrement"   type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "blockIncrement"  type = "xsd:double"         use = "required"/>
+        <xsd:attribute name = "blockInterval"   type = "xsd:double"         use = "required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="styleset">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация множества стилей.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Style's set configuration.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element
+                name        = "style"
+                type        = "styleInStyleset"
+                minOccurs   = "0"
+                maxOccurs   = "unbounded"
+            />
+        </xsd:sequence>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="group">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация группы элементов.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Configuration of group of elements.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:group 
+            ref         = "elements"
+            minOccurs   = "0"
+            maxOccurs   = "unbounded"
+        />
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>      
+    </xsd:complexType>
+
+    <xsd:complexType name="choice">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Конфигурация Choice.
+            </xsd:documentation>
+            <xsd:documentation xml:lang="en">
+                Choice configuration.
+            </xsd:documentation>
+        </xsd:annotation>
+	<xsd:sequence>
+		<xsd:element
+			name		= "message"
+			type		= "message"
+			minOccurs	= "0"
+			maxOccurs	= "unbounded"
+ 		/>
+	</xsd:sequence>
+        <xsd:attribute name = "description"     type = "xsd:string"                         />
+        <xsd:attribute name = "param"           type = "xsd:string"         use = "required"/>      
+        <xsd:attribute name = "hint-ru"         type = "xsd:string"         use = "required"/>
+        <xsd:attribute name = "hint-en"         type = "xsd:string"         use = "required"/>
+    </xsd:complexType>
+
+</xsd:schema>
