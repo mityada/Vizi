@@ -91,7 +91,7 @@ public class AutoControlsPane
     public AutoControlsPane(Configuration config, 
         AutomataWithListener automata, JFrame forefather, 
         boolean bigStepButtons
-    ) {
+    ) {        
         this.automata = automata;
         automata.addListener(this);
 

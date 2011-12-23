@@ -55,7 +55,6 @@ public class HintedButton extends JButton implements ActionListener {
         setActionCommand(name);
         addActionListener(this);
 
-        //setLabel(config.getParameter(name));
         setText(config.getParameter(name));
         setHint(
             config.getParameter(name + "-hint"),

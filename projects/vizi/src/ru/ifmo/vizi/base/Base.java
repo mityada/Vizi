@@ -148,7 +148,7 @@ public abstract class Base implements AutomataListener {
      * @return created pane.
      */
     private Component createBottomPane() {
-        Panel panel = new Panel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout());
         panel.add(commentPane, BorderLayout.NORTH);
 
         final Component controlsPane = createControlsPane();
@@ -294,7 +294,7 @@ public abstract class Base implements AutomataListener {
          * @param g graphics to paint on.
          */
         public void paint(Graphics g) {
-            super.paint(g);            
+            super.paint(g);
             paintClient(g, getSize().width, getSize().height);
         }
 

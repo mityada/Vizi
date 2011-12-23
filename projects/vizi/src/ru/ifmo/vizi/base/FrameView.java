@@ -55,7 +55,6 @@ public final class FrameView extends Applet {
         Dimension s = frame.getSize();
         frame.setLocation((ss.width - s.width) / 2, (ss.height - s.height) / 2);
 
-        //frame.show();
         frame.setVisible(true);
         
         component.requestFocus();

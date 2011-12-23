@@ -54,8 +54,6 @@ public final class CommentPane extends JPanel {
      * Draw buffer.
      */
     private Image buffer;
-    
-    private JTextArea textArea;
 
     /**
      * Constructs a new comment pane.
@@ -64,17 +62,12 @@ public final class CommentPane extends JPanel {
      * @param name name of the comment pane.
      */
     public CommentPane(Configuration config, String name) {
-        textArea = new JTextArea();
-        add(textArea);
-        
-        textArea.setForeground(config.getColor(name + "-foreground"));
+        setForeground(config.getColor(name + "-foreground"));
         setBackground(config.getColor(name + "-background"));
-        textArea.setBackground(config.getColor(name + "-background"));
-        textArea.setFont(config.getFont(name + "-font"));
-        
+        setFont(config.getFont(name + "-font"));
+
         if (config.hasParameter(name + "-lines")) {
-            height = (int) (textArea.getFontMetrics(textArea.getFont()).getHeight() * (config.getInteger(name + "-lines") + 0.3));
-            textArea.setRows(config.getInteger(name + "-lines"));
+            height = (int) (getFontMetrics(getFont()).getHeight() * (config.getInteger(name + "-lines") + 0.3));
         } else {
             height = config.getInteger(name + "-height");
         }
@@ -87,8 +80,7 @@ public final class CommentPane extends JPanel {
      */
     public void setComment(String comment) {
         this.comment = comment;
-        textArea.setText(comment);
-        //this.repaint();
+        this.repaint();
     }
 
     /**
@@ -123,59 +115,59 @@ public final class CommentPane extends JPanel {
      *
      * @param g graphic to update for.
      */
-//    public void update(Graphics g) {
-//        paint(g);
-//    }
+    public void update(Graphics g) {
+        paint(g);
+    }
 
     /**
      * Paints comment paint.
      *
      * @param g graphics to paint on.
      */
-//    public void paint(Graphics g) {
-//        Dimension size = getSize();
-//        final int width  = size.width;
-//        final int height = size.height;
-//
-//        if (buffer == null) {
-//            buffer = createImage(width, height);
-//        }
-//        Image buffer = this.buffer;
-//        Graphics bg = buffer.getGraphics();
-//
-//        super.paint(bg);
-//
-//        bg.clearRect(0, 0, width - 1, height - 1);
-//        bg.drawLine(0, 0, width - 1, 0);
-//
-//        if (comment != null) {
-//            StringTokenizer tokenizer = new StringTokenizer(comment);
-//            FontMetrics metrics = bg.getFontMetrics();
-//
-//            String str = "";
-//            int x = 10;
-//            int y = metrics.getHeight();
-//            if (tokenizer.hasMoreTokens()) {
-//                str = tokenizer.nextToken();
-//            }
-//            while (tokenizer.hasMoreTokens()) {
-//                final String token = tokenizer.nextToken();
-//                if (metrics.stringWidth(str + ' ' + token) > width - 2 * x) {
-//                    bg.drawString(str, x, y);
-//                    y += metrics.getHeight();
-//                    str = token;
-//                } else {
-//                    str += ' ' + token;
-//                }
-//            }
-//            if (0 != str.length()) {
-//                bg.drawString(str.trim(), x, y);
-//            }
-//        }
-//        bg.dispose();
-//
-//        g.drawImage(buffer, 0, 0, null);
-//    }
+    public void paint(Graphics g) {
+        Dimension size = getSize();
+        final int width  = size.width;
+        final int height = size.height;
+
+        if (buffer == null) {
+            buffer = createImage(width, height);
+        }
+        Image buffer = this.buffer;
+        Graphics bg = buffer.getGraphics();
+
+        super.paint(bg);
+
+        bg.clearRect(0, 0, width - 1, height - 1);
+        bg.drawLine(0, 0, width - 1, 0);
+
+        if (comment != null) {
+            StringTokenizer tokenizer = new StringTokenizer(comment);
+            FontMetrics metrics = bg.getFontMetrics();
+
+            String str = "";
+            int x = 10;
+            int y = metrics.getHeight();
+            if (tokenizer.hasMoreTokens()) {
+                str = tokenizer.nextToken();
+            }
+            while (tokenizer.hasMoreTokens()) {
+                final String token = tokenizer.nextToken();
+                if (metrics.stringWidth(str + ' ' + token) > width - 2 * x) {
+                    bg.drawString(str, x, y);
+                    y += metrics.getHeight();
+                    str = token;
+                } else {
+                    str += ' ' + token;
+                }
+            }
+            if (0 != str.length()) {
+                bg.drawString(str.trim(), x, y);
+            }
+        }
+        bg.dispose();
+
+        g.drawImage(buffer, 0, 0, null);
+    }
 
     /**
      * Sets new bounds of comment pane.
@@ -185,9 +177,9 @@ public final class CommentPane extends JPanel {
      * @param width the new <code>width</code>.
      * @param height the new <code>height</code>.
      */
-//    public void setBounds(int x, int y, int width, int height) {
-//        super.setBounds(x, y, width, height);
-//        buffer = null;
-//    }
+    public void setBounds(int x, int y, int width, int height) {
+        super.setBounds(x, y, width, height);
+        buffer = null;
+    }
 }
 
