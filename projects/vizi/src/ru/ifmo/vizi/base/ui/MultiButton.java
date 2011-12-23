@@ -90,7 +90,7 @@ public class MultiButton extends HintedButton {
         }
         if (this.state != state) {
             this.state = state;
-            setLabel(captions[state]);
+            setText(captions[state]);
             setHint(hints[state], hotKeys[state]);
         }
    }
