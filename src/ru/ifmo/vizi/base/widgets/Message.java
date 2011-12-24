@@ -115,6 +115,10 @@ public final class Message {
      * @param y y-coordinate of the upper-left corner of the message.
      */
     public void draw(Graphics g, int x, int y) {
+        Graphics2D g2d = (Graphics2D) g;
+        
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+        
         FontMetrics metrics = g.getFontMetrics();
         int width = calculateSize(metrics, 0).width;
         int fontHeight = (int) (metrics.getHeight() * VERTICAL_ASPECT);
@@ -122,7 +126,7 @@ public final class Message {
         y = y + metrics.getAscent();
         for (int i = 0; i < lines.length; i++) {
             int w = metrics.stringWidth(lines[i]);
-            g.drawString(lines[i], x + (int) (align * (width - w)), y);
+            g2d.drawString(lines[i], x + (int) (align * (width - w)), y);
             y += fontHeight;
         }
     }

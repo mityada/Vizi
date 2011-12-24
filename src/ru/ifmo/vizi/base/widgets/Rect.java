@@ -1,6 +1,7 @@
 package ru.ifmo.vizi.base.widgets;
 
 import java.awt.*;
+import java.awt.geom.*;
 
 /**
  * Rectangular shape.
@@ -15,11 +16,6 @@ public final class Rect extends Shape {
      * Corners radius.
      */
     int radius;
-
-    /**
-     * Whether to use the Bresenham algorithm.
-     */
-    private final static boolean USE_BRESENHAM = true;
 
     /**
      * Creates a new rectangle with specified style set, empty message
@@ -105,43 +101,23 @@ public final class Rect extends Shape {
      * @param g graphics context for painting.
      */
     public void paint(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         Dimension size = getSize();
         int w = size.width - 1;
         int h = size.height - 1;
-        if (USE_BRESENHAM && (radius > 0)) {            
-            if (look.getFillStatus(style)) {
-                g.setColor(look.getFillColor(style));
 
-                Bresenham.fillEllipse(g, w - 2 * radius, 1, 2 * radius, 2 * radius);
-                Bresenham.fillEllipse(g, 1, 1, 2 * radius, 2 * radius);
-                Bresenham.fillEllipse(g, 1, h - 2 * radius, 2 * radius, 2 * radius);
-                Bresenham.fillEllipse(g, w - 2 * radius, h - 2 * radius, 2 * radius, 2 * radius);
+        RoundRectangle2D rect = new RoundRectangle2D.Double(0, 0, w, h, radius * 2, radius * 2);
 
-                g.fillRect(radius, 1, w - 2 * radius, h);
-                g.fillRect(1, radius, w, h - 2 * radius);
-            }           
-            if (look.getBorderStatus(style)) {
-                g.setColor(look.getBorderColor(style));
-                Bresenham.drawEllipse(g, w - 2 * radius, 1, 2 * radius, 2 * radius, true, false, false, false);
-                Bresenham.drawEllipse(g, 1, 1, 2 * radius, 2 * radius, false, true, false, false);
-                Bresenham.drawEllipse(g, 1, h - 2 * radius, 2 * radius, 2 * radius, false, false, true, false);
-                Bresenham.drawEllipse(g, w - 2 * radius, h - 2 * radius, 2 * radius, 2 * radius, false, false, false, true);
-
-                g.setColor(look.getBorderColor(style));
-                g.drawLine(radius, 0, w - radius, 0);
-                g.drawLine(radius, h, w - radius, h);
-                g.drawLine(0, radius, 0, h - radius); 
-                g.drawLine(w, radius, w, h - radius);
-            }
-        } else {
-            if (look.getFillStatus(style)) {
-                g.setColor(look.getFillColor(style));
-                g.fillRoundRect(0, 0, size.width - 1, size.height - 1, radius * 2, radius * 2);
-            }
-            if (look.getBorderStatus(style)) {
-                g.setColor(look.getBorderColor(style));
-                g.drawRoundRect(0, 0, size.width - 1, size.height - 1, radius * 2, radius * 2);
-            }
+        if (look.getFillStatus(style)) {
+            g2d.setPaint((Paint)look.getFillColor(style));
+            g2d.fill(rect);
+        }
+        if (look.getBorderStatus(style)) {
+            g.setColor(look.getBorderColor(style));
+            g2d.draw(rect);
         }
         super.paint(g);
     }

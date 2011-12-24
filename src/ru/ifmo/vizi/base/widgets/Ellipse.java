@@ -1,6 +1,7 @@
 package ru.ifmo.vizi.base.widgets;
 
 import java.awt.*;
+import java.awt.geom.*;
 
 /**
  * Ellipse shape.
@@ -13,11 +14,6 @@ public class Ellipse extends Shape {
      * Square root of 2.
      */
     private final static double SQRT2 = Math.sqrt(2);
-
-    /**
-     * Whether to use the Bresenham algorithm.
-     */
-    private final static boolean USE_BRESENHAM = true;
 
     /**
      * Creates a new ellipse with specified style set, size and empty message.
@@ -67,28 +63,27 @@ public class Ellipse extends Shape {
      * @param g graphics context for painting.
      */
     public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         Dimension size = getSize();
         int w = size.width - 2;
         int h = size.height - 2;
-        if (USE_BRESENHAM) {
-        	if (look.getFillStatus(style)) {
-        		g.setColor(look.getFillColor(style));
-        		Bresenham.fillEllipse(g, 1, 1, w, h);
-        	}
-        	if (look.getBorderStatus(style)) {
-        		g.setColor(look.getBorderColor(style));
-        		Bresenham.drawEllipse(g, 1, 1, w, h);
-        	}
-        } else {
-        	if (look.getFillStatus(style)) {
-        		g.setColor(look.getFillColor(style));
-        		g.fillOval(1, 1, w, h);
-        	}
-        	if (look.getBorderStatus(style)) {
-        		g.setColor(look.getBorderColor(style));
-        		g.drawOval(1, 1, w, h);
-        	}
+
+        Ellipse2D ellipse = new Ellipse2D.Double(1, 1, w, h);
+
+        if (look.getFillStatus(style)) {
+            g2.setPaint((Paint)look.getFillColor(style));
+            g2.fill(ellipse);
         }
+
+        if (look.getBorderStatus(style)) {
+            g2.setPaint((Paint)look.getBorderColor(style));
+            g2.setStroke(new BasicStroke(1));
+            g2.draw(ellipse);
+        }
+
         super.paint(g);
     }
 }
