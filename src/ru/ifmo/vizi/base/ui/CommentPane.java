@@ -1,6 +1,8 @@
 package ru.ifmo.vizi.base.ui;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
+import java.text.AttributedCharacterIterator;
 import javax.swing.*;
 import java.util.StringTokenizer;
 import ru.ifmo.vizi.base.Configuration;
@@ -136,9 +138,13 @@ public final class CommentPane extends JPanel {
         Graphics bg = buffer.getGraphics();
 
         super.paint(bg);
-
-        bg.clearRect(0, 0, width - 1, height - 1);
-        bg.drawLine(0, 0, width - 1, 0);
+        
+        Graphics2D bg2d = (Graphics2D) bg;
+        
+        bg2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+        
+        bg2d.clearRect(0, 0, width - 1, height - 1);
+        bg2d.draw(new Line2D.Double(0, 0, width - 1, 0));
 
         if (comment != null) {
             StringTokenizer tokenizer = new StringTokenizer(comment);
@@ -153,7 +159,7 @@ public final class CommentPane extends JPanel {
             while (tokenizer.hasMoreTokens()) {
                 final String token = tokenizer.nextToken();
                 if (metrics.stringWidth(str + ' ' + token) > width - 2 * x) {
-                    bg.drawString(str, x, y);
+                    bg2d.drawString(str, x, y);
                     y += metrics.getHeight();
                     str = token;
                 } else {
@@ -161,10 +167,10 @@ public final class CommentPane extends JPanel {
                 }
             }
             if (0 != str.length()) {
-                bg.drawString(str.trim(), x, y);
+                bg2d.drawString(str.trim(), x, y);
             }
         }
-        bg.dispose();
+        bg2d.dispose();
 
         g.drawImage(buffer, 0, 0, null);
     }
