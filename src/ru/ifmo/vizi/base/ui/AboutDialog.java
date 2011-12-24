@@ -146,6 +146,14 @@ public class AboutDialog extends ModalDialog {
 
         Font font = config.getFont("about-font");
         setFont(font);
+        labelAuthor.setFont(font);
+        labelSupervisor.setFont(font);
+        labelTechnology.setFont(font);
+        labelAddition.setFont(font);
+        for (int i = 0; i < lines.length; i++) {
+            lines[i].setFont(font);
+        }
+        
         Font captionFont = config.getFont("about-caption-font", font);
         lAlgorithm.setFont(captionFont);
         lAuthor.setFont(captionFont);
