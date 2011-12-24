@@ -151,7 +151,7 @@ public abstract class SaveLoadDialog extends ModalDialog {
                 protected void click() {
                     File f = showFileDialog(
                         config.getParameter(prefix + "-saveTitle"),
-                        FileDialog.SAVE);
+                        JFileChooser.SAVE_DIALOG);
 
                     if (f != null) {
                         Writer writer = null;
@@ -177,7 +177,7 @@ public abstract class SaveLoadDialog extends ModalDialog {
                 protected void click() {
                     File f = showFileDialog(
                         config.getParameter(prefix + "-loadTitle"),
-                        FileDialog.LOAD);
+                        JFileChooser.OPEN_DIALOG);
 
                     if (f != null) {
                         BufferedReader reader = null;
@@ -213,16 +213,18 @@ public abstract class SaveLoadDialog extends ModalDialog {
     }
 
     private File showFileDialog(String title, int mode) {
-        FileDialog dialog = new FileDialog(getOwner(), title, mode);
-        dialog.pack();
-        center(dialog, this);
+        JFileChooser dialog = new JFileChooser();
+        dialog.setDialogTitle(title);
+        dialog.setDialogType(mode);
 
-        dialog.show();
-
-        String filename = dialog.getFile();
-        return (filename == null)
-            ? null
-            : new File(dialog.getDirectory(), filename);
+        if (mode == JFileChooser.OPEN_DIALOG) {
+            dialog.showOpenDialog(getOwner());
+        }
+        if (mode == JFileChooser.SAVE_DIALOG) {
+            dialog.showSaveDialog(getOwner());
+        }
+        
+        return dialog.getSelectedFile();
     }
 
     /**
